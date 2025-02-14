@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WarriorDebugHelper.h"
 #include "Characters/WarriorBaseCharacter.h"
 #include "WarriorHeroCharacter.generated.h"
 
@@ -14,4 +15,6 @@ class WARRIORGAME_API AWarriorHeroCharacter : public AWarriorBaseCharacter
 {
 	GENERATED_BODY()
 	
+protected:
+	virtual void BeginPlay() override;
 };

@@ -3,3 +3,9 @@
 
 #include "Characters/WarriorHeroCharacter.h"
 
+void AWarriorHeroCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Debug::Print(TEXT("Workinggg"));
+}
