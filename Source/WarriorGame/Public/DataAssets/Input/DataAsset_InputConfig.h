@@ -42,6 +42,6 @@ public:
 	TArray<FWarriorInputActionConfig> NativeInputActions;									// using the name Input Action for the rows inside this array
 
 	// helper function to help us find input actions by tag
-	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag);
+	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;
 
 };
