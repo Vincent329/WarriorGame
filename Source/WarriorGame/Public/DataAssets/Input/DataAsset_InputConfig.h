@@ -38,7 +38,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputMappingContext* DefaultMappingContext;	
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))	// variable can be anything we defined inside the input action config struct,
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))		// variable can be anything we defined inside the input action config struct,
 	TArray<FWarriorInputActionConfig> NativeInputActions;									// using the name Input Action for the rows inside this array
 
 	// helper function to help us find input actions by tag

@@ -6,7 +6,14 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "DataAssets/Input/DataAsset_InputConfig.h"
+#include "Components/Input/WarriorInputComponent.h"
 
+#include "WarriorGameplayTags.h" // get the tags in here
+
+
+// trick to keep debug underneath all the includes, to help see what classes have the debug helper or not
 #include "WarriorDebugHelper.h"
 
 AWarriorHeroCharacter::AWarriorHeroCharacter()
@@ -34,9 +41,69 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 }
 
+void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	checkf(InputConfigDataAsset, TEXT("Input Config Data Asset is null, forgot to assign valid data asset as input config"));
+	
+	// Step1:	Get a reference to our Player Controller
+	//		-	store this in a local variable first
+	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer(); // We'll get the EnhancedLocalInputSubSystem from this local player
+	
+	UEnhancedInputLocalPlayerSubsystem* Subsystem =	ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+	check(Subsystem);
+
+	Subsystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);	// the Subsystem is pointing to the local player's subsystem, 
+																					//and this way we can directly add the mapping context to the local player
+
+	UWarriorInputComponent* WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);	// by creating a CastChecked, if the player input component is null or if the cast fails
+																												// game will crash immediately.  This way we can easily debug and check if Player Input Component is valid
+																												// Warrior Input Component will be valid if we pass this check
+	
+	// setting up the movemnet
+	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Move);
+	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Look);
+
+
+}
+
+
 void AWarriorHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Debug::Print(TEXT("Workinggg"));
+}
+
+void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
+{
+	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();	// movement axis on a 2D plane
+	const FRotator MovementRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f); // only account for the yaw of the controller
+
+	// movement logic
+	if (MovementVector.Y != 0.f)
+	{
+		const FVector ForwardDirection = MovementRotation.RotateVector(FVector::ForwardVector);
+
+		AddMovementInput(ForwardDirection, MovementVector.Y);
+	}
+	
+	if (MovementVector.X != 0.f)
+	{
+		const FVector RightDirection = MovementRotation.RotateVector(FVector::RightVector);
+
+		AddMovementInput(RightDirection, MovementVector.X);
+	}
+}
+
+void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
+{
+	const FVector2D LookRotationAxis = InputActionValue.Get<FVector2D>();
+
+	if (LookRotationAxis.X != 0.f)
+	{
+		AddControllerYawInput(LookRotationAxis.X);
+	}
+	if (LookRotationAxis.Y != 0.0f)
+	{
+		AddControllerPitchInput(LookRotationAxis.Y);
+	}
 }
