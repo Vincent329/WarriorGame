@@ -26,10 +26,15 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(GetRootComponent()); // attach this to the root component
-	CameraBoom->TargetArmLength = 200.0f;	// Keep the follow camera close to our character, offset to the side on our shoulder
+	CameraBoom->TargetArmLength = 500.0f;	// Keep the follow camera close to our character, offset to the side on our shoulder
 											// This can be customized to our liking so don't need to be too rigid on this
 	CameraBoom->SocketOffset = FVector(0.f, 55.f, 65.f); // Camera goes a bit to the right, and raised a bit high
 	CameraBoom->bUsePawnControlRotation = true;
+	CameraBoom->bEnableCameraLag = true;
+	CameraBoom->CameraLagSpeed = 100.f;
+	CameraBoom->bEnableCameraRotationLag = true;
+	CameraBoom->CameraRotationLagSpeed = 100.0f;
+
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
@@ -47,7 +52,8 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	
 	// Step1:	Get a reference to our Player Controller
 	//		-	store this in a local variable first
-	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer(); // We'll get the EnhancedLocalInputSubSystem from this local player
+	APlayerController* PController = GetController<APlayerController>();
+	ULocalPlayer* LocalPlayer = PController->GetLocalPlayer(); // We'll get the EnhancedLocalInputSubSystem from this local player
 	
 	UEnhancedInputLocalPlayerSubsystem* Subsystem =	ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
 	check(Subsystem);
@@ -59,9 +65,13 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 																												// game will crash immediately.  This way we can easily debug and check if Player Input Component is valid
 																												// Warrior Input Component will be valid if we pass this check
 	
+	PController->SetInputMode(FInputModeGameOnly());
+	
 	// setting up the movemnet
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Move);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Look);
+	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Jump);
+	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_StopJump);
 
 
 }
@@ -106,4 +116,15 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 	{
 		AddControllerPitchInput(LookRotationAxis.Y);
 	}
+}
+
+void AWarriorHeroCharacter::Input_Jump(const FInputActionValue& InputActionValue)
+{
+	Jump();
+}
+
+void AWarriorHeroCharacter::Input_StopJump(const FInputActionValue& InputActionValue)
+{
+	StopJumping();
+	Debug::Print(TEXT("Stopped Jumping"));
 }

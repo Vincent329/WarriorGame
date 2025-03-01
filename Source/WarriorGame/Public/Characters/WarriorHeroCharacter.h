@@ -50,5 +50,7 @@ private:
 
 	void Input_Move(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 	void Input_Look(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
+	void Input_Jump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
+	void Input_StopJump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 #pragma endregion
 };
