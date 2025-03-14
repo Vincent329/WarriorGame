@@ -27,4 +27,13 @@ void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaS
 	f_GroundSpeed = OwningCharacter->GetVelocity().Size2D();
 
 	b_HasAcceleration = OwningMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.0f; // essentially returning the magnitude of the acceleration (2D vector magnitude if we're just getting the lateral accelaration).
+
+
+	if (OwningMovementComponent->IsMovingOnGround() && OwningCharacter->bPressedJump)
+	{
+		b_DidJump = OwningCharacter->bPressedJump;
+	}
+	else {
+		b_DidJump = false;
+	}
 }

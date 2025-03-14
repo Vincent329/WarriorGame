@@ -28,11 +28,17 @@ public:
 	AWarriorHeroCharacter();
 	
 protected:
+
+
 	// we are overriding the input  component class from the base character header
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
-private:
+	// to try and test that the functions we made in the base character class work, we'll override them here
+	//~Begin APawn Interface
+	virtual void PossessedBy(AController* NewController) override;
+	//~ End APawn Interface private:
+
 #pragma region Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;

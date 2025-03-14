@@ -9,6 +9,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/WarriorInputComponent.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h" // paste the header here as we need to utilize the classes here
+#include "AbilitySystem/WarriorAttributeSet.h" // paste the header here as we need to utilize the classes here
 
 #include "WarriorGameplayTags.h" // get the tags in here
 
@@ -83,6 +85,24 @@ void AWarriorHeroCharacter::BeginPlay()
 
 }
 
+void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	// if the ability system component is valid,
+	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	{
+
+	// debug string to check if the components made are valid
+		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, Avatar Actor: %s"), *WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), *WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+		
+		Debug::Print(TEXT("Ability System Component Valid. ") + ASCText, FColor::Green);
+		Debug::Print(TEXT("Attribute Set Valid. ") + ASCText, FColor::Green);
+		
+
+	}
+}
+
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();	// movement axis on a 2D plane
@@ -121,10 +141,11 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 void AWarriorHeroCharacter::Input_Jump(const FInputActionValue& InputActionValue)
 {
 	Jump();
+
 }
 
 void AWarriorHeroCharacter::Input_StopJump(const FInputActionValue& InputActionValue)
 {
 	StopJumping();
-	Debug::Print(TEXT("Stopped Jumping"));
+
 }
