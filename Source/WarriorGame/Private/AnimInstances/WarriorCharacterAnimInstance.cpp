@@ -4,6 +4,7 @@
 #include "AnimInstances/WarriorCharacterAnimInstance.h"
 #include "Characters/WarriorBaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "WarriorDebugHelper.h"
 
 void UWarriorCharacterAnimInstance::NativeInitializeAnimation()
 {
@@ -28,8 +29,11 @@ void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaS
 
 	b_HasAcceleration = OwningMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.0f; // essentially returning the magnitude of the acceleration (2D vector magnitude if we're just getting the lateral accelaration).
 
+	b_IsOnGround = OwningMovementComponent->IsMovingOnGround();
 
-	if (OwningMovementComponent->IsMovingOnGround() && OwningCharacter->bPressedJump)
+	b_IsFalling = OwningMovementComponent->IsFalling();
+
+	if (b_IsOnGround && OwningCharacter->bPressedJump && !b_IsFalling)
 	{
 		b_DidJump = OwningCharacter->bPressedJump;
 	}
