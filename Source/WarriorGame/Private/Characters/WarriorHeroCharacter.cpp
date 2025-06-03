@@ -69,7 +69,9 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	
 	PController->SetInputMode(FInputModeGameOnly());
 	
-	// setting up the movemnet
+	// setting up the Input Bindings and functions
+
+
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Move);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Look);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Jump);
