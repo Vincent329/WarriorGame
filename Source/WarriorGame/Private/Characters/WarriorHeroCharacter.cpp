@@ -11,7 +11,7 @@
 #include "Components/Input/WarriorInputComponent.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h" // paste the header here as we need to utilize the classes here
 #include "AbilitySystem/WarriorAttributeSet.h" // paste the header here as we need to utilize the classes here
-
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "WarriorGameplayTags.h" // get the tags in here
 
 
@@ -91,17 +91,24 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	// if the ability system component is valid,
-	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	//// if the ability system component is valid,
+	//if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	//{
+	//// debug string to check if the components made are valid
+	//	const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, Avatar Actor: %s"), *WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), *WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+	//	
+	//	Debug::Print(TEXT("Ability System Component Valid. ") + ASCText, FColor::Green);
+	//	Debug::Print(TEXT("Attribute Set Valid. ") + ASCText, FColor::Green);
+	//}
+
+	// we use IsNull for Softobject pointers because isValid would check for assets that are already loaded
+	if (!CharacterStartUpData.IsNull())
 	{
 
-	// debug string to check if the components made are valid
-		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, Avatar Actor: %s"), *WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(), *WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
-		
-		Debug::Print(TEXT("Ability System Component Valid. ") + ASCText, FColor::Green);
-		Debug::Print(TEXT("Attribute Set Valid. ") + ASCText, FColor::Green);
-		
-
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+		}
 	}
 }
 

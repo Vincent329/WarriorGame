@@ -9,6 +9,7 @@
 
 class UWarriorAbilitySystemComponent;
 class UWarriorAttributeSet;
+class UDataAsset_StartUpDataBase;
 
 UCLASS()
 class WARRIORGAME_API AWarriorBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -37,6 +38,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
 	UWarriorAttributeSet* WarriorAttributeSet;
+
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
+	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
 
 public:
 	// public getters will give us access to these components in C++
