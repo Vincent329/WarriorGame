@@ -15,6 +15,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UDataAsset_InputConfig; // reference the input config asset, necessary for input binding custom inputs
 struct FInputActionValue;	// forward declaring a struct
+class UHeroCombatComponent;
 
 /**
  * 
@@ -45,7 +46,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UHeroCombatComponent* HeroCombatComponent;
 #pragma endregion
 
 #pragma region Inputs
@@ -58,4 +60,7 @@ protected:
 	void Input_Jump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 	void Input_StopJump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 #pragma endregion
+
+public:
+	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent  () const { return HeroCombatComponent; }
 };

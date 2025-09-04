@@ -12,6 +12,7 @@
 #include "AbilitySystem/WarriorAbilitySystemComponent.h" // paste the header here as we need to utilize the classes here
 #include "AbilitySystem/WarriorAttributeSet.h" // paste the header here as we need to utilize the classes here
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
+#include "Components/Combat/HeroCombatComponent.h"
 #include "WarriorGameplayTags.h" // get the tags in here
 
 
@@ -46,6 +47,9 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
+
 }
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
