@@ -18,7 +18,7 @@ struct FWarriorInputActionConfig
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-	FGameplayTag InputTag; // if you find a squiggly line, you can press F12 to go to the declaration of the data type if it exists nad find the include directories needed
+	FGameplayTag InputTag; // if you find a squiggly line, you can press F12 to go to the declaration of the data type if it exists and find the include directories needed
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputAction* InputAction; // if you find a squiggly line, you can press F12 to go to the declaration of the data type if it exists nad find the include directories needed
 								// WEIRD... had to re-order Enhanced input in Build.cs to fix the external error
