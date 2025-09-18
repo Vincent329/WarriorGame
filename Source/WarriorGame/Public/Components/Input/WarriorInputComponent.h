@@ -21,7 +21,10 @@ public:
 	// when we pass in an Input Config Data Asset, it'll run through the input actions that are in the data set, if the tag set in code matches the one in the asset, we bind the appropriate function
 	template<class UserObject, typename CallbackFunc>
 	void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject,  CallbackFunc func);
-	
+
+	// since we only need to worry about when the trigger is pressed or not, we only need to check upon press and release b
+	template<class UserObject, typename CallbackFunc>
+	void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc);
 };
 
 template<class UserObject, typename CallbackFunc>
@@ -35,4 +38,19 @@ inline void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_Input
 		BindAction(FoundAction,TriggerEvent, ContextObject, Func);
 	}
 
+}
+
+template<class UserObject, typename CallbackFunc>
+inline void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
+{
+	//check(InInputConfig); //check if the InInputConfig pointer is valid
+	checkf(InInputConfig, TEXT("Input config data asset is null, cannot proceed with the binding")); //check if the InInputConfig pointer is valid, 2nd method
+	
+	for (const FWarriorInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions) // how does the AbilityInputActions detect if it's the data asset we're going through? 
+	{
+		if (!AbilityInputActionConfig.isValid()) continue; // if the input action isn't valid, jumpt to the next element in the for loop
+
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, AbilityInputActionConfig.InputTag);
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed, ContextObject, InputReleasedFunc, AbilityInputActionConfig.InputTag);
+	}
 }

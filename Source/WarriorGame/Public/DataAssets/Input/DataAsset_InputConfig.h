@@ -23,6 +23,11 @@ public:
 	UInputAction* InputAction; // if you find a squiggly line, you can press F12 to go to the declaration of the data type if it exists nad find the include directories needed
 								// WEIRD... had to re-order Enhanced input in Build.cs to fix the external error
 
+	// -- helper function to check if this struct is valid
+	bool isValid() const
+	{
+		return InputTag.IsValid() && InputAction;
+	}
 };
 
 /**
@@ -40,6 +45,12 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))		// variable can be anything we defined inside the input action config struct,
 	TArray<FWarriorInputActionConfig> NativeInputActions;									// using the name Input Action for the rows inside this array
+																							// Native would be for basic core inputs
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))		// variable can be anything we defined inside the input action config struct,
+	TArray<FWarriorInputActionConfig> AbilityInputActions;									// using the name Input Action for the rows inside this array
+																							// Ability Input for abilities unlocked
+																							// Ability Inputs don't need a helper function for Finding Native Input Actions by tag
 
 	// helper function to help us find input actions by tag
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InInputTag) const;

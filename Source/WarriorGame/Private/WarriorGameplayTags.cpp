@@ -5,12 +5,16 @@
 
 namespace WarriorGameplayTags {
 	/* Input Tags 
-	We DEFINE our tags here
+	We DEFINE our tags here (Ctrl + K, Ctrl + O to switch 
 	*/
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Move, "InputTag.Move");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Jump, "InputTag.Jump");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Attack, "InputTag.Attack");
+
+	//------------ Need to see if we need to adjust this for more weapons
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_EquipWeapon, "InputTag.EquipWeapon");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_UnequipWeapon, "InputTag.UnequipWeapon");
 
 	// Player Tags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Sword, "Player.Weapon.Sword");

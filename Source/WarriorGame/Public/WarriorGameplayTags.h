@@ -15,7 +15,11 @@ namespace WarriorGameplayTags
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Jump);
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Attack);
-	
+
+	//---- Need to see if we need to extend these tags to other weapons
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_EquipWeapon);
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_UnequipWeapon);
+
 	/* Player Tags */
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Sword);
 	// NEXT STEP, define in cpp file
