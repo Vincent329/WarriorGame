@@ -21,6 +21,7 @@ class WARRIORGAME_API UDataAsset_StartUpDataBase : public UDataAsset
 
 public:
 	// ApplyLevel, this refers to the difficulty level we put in our game.  Can be established in the Main Menu
+	// We are going to be overriding this function in the HeroStartUpData, and by extension any other child classes inheriting this class
 	virtual void GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1); 
 	
 protected:
