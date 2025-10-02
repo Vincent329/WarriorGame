@@ -7,6 +7,7 @@
 //#include "GameFramework/SpringArmComponent.h"
 //#include "Components/CameraComponent.h"
 #include "Characters/WarriorBaseCharacter.h"
+#include "GameplayTagContainer.h"
 #include "WarriorHeroCharacter.generated.h"
 
 // forward declaration of the Spring Arm and Camera Components
@@ -59,6 +60,9 @@ protected:
 	void Input_Look(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 	void Input_Jump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 	void Input_StopJump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
+	
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 #pragma endregion
 
 public:

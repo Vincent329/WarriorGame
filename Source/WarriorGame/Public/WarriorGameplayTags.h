@@ -22,6 +22,9 @@ namespace WarriorGameplayTags
 
 	/* Player Tags */
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Sword);
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Sword);
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Sword);
+	
 	// NEXT STEP, define in cpp file
 
 }

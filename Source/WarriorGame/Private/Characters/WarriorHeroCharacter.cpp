@@ -80,6 +80,7 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Started, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_Jump);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Jump, ETriggerEvent::Completed, this, /*Create the Callback function, alternatively use &AWarriorHeroCharacter*/&ThisClass::Input_StopJump);
 
+	WarriorInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 
 }
 
@@ -159,5 +160,18 @@ void AWarriorHeroCharacter::Input_Jump(const FInputActionValue& InputActionValue
 void AWarriorHeroCharacter::Input_StopJump(const FInputActionValue& InputActionValue)
 {
 	StopJumping();
+
+}
+
+//-------- CALLBACK FUNCTIONS -----------
+
+void AWarriorHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 
 }
