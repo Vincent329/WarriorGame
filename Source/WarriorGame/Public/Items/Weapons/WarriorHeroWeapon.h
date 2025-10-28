@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Items/Weapons/WarriorBaseWeapon.h"
+#include "WarriorTypes/WarriorStructTypes.h"
 #include "WarriorHeroWeapon.generated.h"
 
 /**
@@ -13,5 +14,9 @@ UCLASS()
 class WARRIORGAME_API AWarriorHeroWeapon : public AWarriorBaseWeapon
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WeaponData")
+	FWarriorHeroWeaponData HeroWeaponData;
 	
 };
