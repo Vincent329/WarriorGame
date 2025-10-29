@@ -61,6 +61,7 @@ protected:
 	void Input_Jump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 	void Input_StopJump(const FInputActionValue& InputActionValue); // since we are using the const reference input, simple forward dec
 	
+	//----------- NOTE: FOR ANY ABILITIES THAT WE'RE ESTABLISHING VIA THE GAMEPLAY ABILITY SYSTEM, THESE FUNCTIONS WILL HANDbLE IT -----------------
 	void Input_AbilityInputPressed(FGameplayTag InInputTag);
 	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 #pragma endregion
