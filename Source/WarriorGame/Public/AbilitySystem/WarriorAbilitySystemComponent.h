@@ -24,5 +24,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Warrior | Ability", meta = (ApplyLevel = "1")) // for meta data, can apply metadata
 	void GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandle); 
 
-	
+	UFUNCTION(BlueprintCallable, Category = "Warrior | Ability") // For UPARAM starters, see this video clip https://www.youtube.com/watch?v=GwvvJvXq798
+	void RemoveGrantedWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove);
 };

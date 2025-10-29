@@ -43,3 +43,18 @@ void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarr
 	}
 	
 }
+
+void UWarriorAbilitySystemComponent::RemoveGrantedWeaponAbilities(UPARAM(ref)TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove)
+{
+	if (InSpecHandlesToRemove.IsEmpty()) return;
+	
+	for (const FGameplayAbilitySpecHandle& GameplayAbilitySpecHandle : InSpecHandlesToRemove)
+	{
+		if (GameplayAbilitySpecHandle.IsValid())
+		{
+			ClearAbility(GameplayAbilitySpecHandle);
+		}
+	}
+
+	InSpecHandlesToRemove.Empty(); //Any latent abilities, flush out anything
+}

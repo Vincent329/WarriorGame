@@ -28,7 +28,7 @@ struct FWarriorHeroWeaponData
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf< UWarriorHeroLinkedAnimLayer> WeaponAnimLayerToLink; // can be extended to account for multiple weapons
+	TSubclassOf< UWarriorHeroLinkedAnimLayer> WeaponAnimLayerToLink; // can be extended to account for multiple weapons, different Animation Layers for weapons of our choice
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputMappingContext* WeaponInputMappingContext; // the weapon mapping context currently active (When a weapon is equipped, swap mapping contexts to account for weapon-specific inputs)
