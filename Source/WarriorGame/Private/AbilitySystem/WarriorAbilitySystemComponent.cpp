@@ -14,7 +14,8 @@ void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& I
 	// this is from the parent Ability System Component: Returns an array of gameplay abilities  
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag)) continue; // once we get past this check, we know that an ability with this tag exists
+	
+		if (!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag)) continue; // once we get past this check, we know that an ability with this tag exists
 		
 		TryActivateAbility(AbilitySpec.Handle); // Activate the ability in our for loop
 	}
@@ -36,7 +37,7 @@ void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarr
 
 		AbilitySpec.SourceObject = GetAvatarActor();
 		AbilitySpec.Level = ApplyLevel;
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
 
 		OutGrantedAbilitySpecHandle.AddUnique(GiveAbility(AbilitySpec)); // When we call Give Ability, we're going to store the return value of that function call and place it in the OutGrantedAbilitySpecHandle modifier
 

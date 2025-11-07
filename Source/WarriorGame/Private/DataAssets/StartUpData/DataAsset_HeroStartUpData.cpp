@@ -16,7 +16,7 @@ void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySys
 		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
 		AbilitySpec.SourceObject = InASCToGive->GetAvatarActor();
 		AbilitySpec.Level = ApplyLevel;
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
 
 		InASCToGive->GiveAbility(AbilitySpec); // can then retrieve the gameplay ability using the input tag from Dynamic Ability Tags
 	}
