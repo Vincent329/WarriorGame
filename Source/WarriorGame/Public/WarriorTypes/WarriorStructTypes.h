@@ -5,7 +5,7 @@
 #include "WarriorStructTypes.generated.h" // remember when creating custom files, to add a generated.h file
 
 class UWarriorHeroLinkedAnimLayer;
-class UWarriorGameplayAbility;
+class UWarriorHeroGameplayAbility;
 class UInputMappingContext;
 
 // add: We moved the struct from the Hero Startup Data and brought it to Struct Types, so that we can use this more freely
@@ -17,7 +17,7 @@ struct FWarriorHeroAbilitySet {
 	FGameplayTag InputTag; // if you find a squiggly line, you can press F12 to go to the declaration of the data type if it exists and find the include directories needed
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UWarriorGameplayAbility> AbilityToGrant;
+	TSubclassOf<UWarriorHeroGameplayAbility> AbilityToGrant;
 
 	bool IsValid() const; // we want to check if the Ability to grant
 };

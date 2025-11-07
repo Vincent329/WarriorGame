@@ -2,7 +2,7 @@
 
 
 #include "WarriorTypes/WarriorStructTypes.h"
-#include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
+#include "AbilitySystem/Abilities/WarriorHeroGameplayAbility.h"
 
 bool FWarriorHeroAbilitySet::IsValid() const {
 	return InputTag.IsValid() && AbilityToGrant; // checking if there's a valid tag and if the Ability is valid
