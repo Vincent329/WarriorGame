@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.5",
+	"EngineAssociation": "{D5AD1CD2-4D0E-ABF8-79CE-BE994C39BAD1}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -25,7 +25,7 @@
 		},
 		{
 			"Name": "GitCentral",
-			"Enabled": true,
+			"Enabled": false,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/0a04519938924b11b2423584c1a02d51"
 		},
 		{
