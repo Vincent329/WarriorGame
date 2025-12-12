@@ -6,6 +6,7 @@
 
 class UWarriorHeroLinkedAnimLayer;
 class UWarriorHeroGameplayAbility;
+class UWarriorEnemyGameplayAbility;
 class UInputMappingContext;
 
 // add: We moved the struct from the Hero Startup Data and brought it to Struct Types, so that we can use this more freely

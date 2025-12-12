@@ -18,11 +18,18 @@ class WARRIORGAME_API AWarriorEnemyCharacter : public AWarriorBaseCharacter
 	
 public:
 	AWarriorEnemyCharacter();
+
+private:
+	void InitEnemyStartUpData();
 	
 protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
 	UEnemyCombatComponent* EnemyCombatComponent;
+
+	//~Begin APawn Interface
+	virtual void PossessedBy(AController* NewController) override;
+	//~ End APawn Interface private:
 
 public:
 
