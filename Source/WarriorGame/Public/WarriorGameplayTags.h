@@ -33,6 +33,10 @@ namespace WarriorGameplayTags
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Unequip_Sword);
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_AttackCancel);
 
+
+	/* Enemy Tags */
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
+
 	/* Status Tags */
 	// NOTE: Perhaps extend this functionality to when there's a unique animation for any attack in the route
 	// MAYBE ALSO: Extend for directional attack inputs

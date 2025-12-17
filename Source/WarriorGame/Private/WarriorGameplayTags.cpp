@@ -29,6 +29,9 @@ namespace WarriorGameplayTags {
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Unequip_Sword, "Player.Event.Unequip.Sword");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_AttackCancel, "Player.Status.AttackCancel");
 
+	// Enemy Tags
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Weapon, "Enemy.Weapon");
+
 	// Status Tags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher");
 
