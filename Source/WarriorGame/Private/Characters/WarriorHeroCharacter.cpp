@@ -13,6 +13,7 @@
 #include "AbilitySystem/WarriorAttributeSet.h" // paste the header here as we need to utilize the classes here
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "Components/Combat/HeroCombatComponent.h"
+#include "Animation/AnimInstance.h"
 #include "WarriorGameplayTags.h" // get the tags in here
 
 
@@ -155,6 +156,13 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 void AWarriorHeroCharacter::Input_Jump(const FInputActionValue& InputActionValue)
 {
 	Jump();
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && JumpAnim)
+	{
+		AnimInstance->Montage_Play(JumpAnim);
+		AnimInstance->Montage_JumpToSection("Jump");
+	}
 
 }
 

@@ -17,6 +17,7 @@ class UCameraComponent;
 class UDataAsset_InputConfig; // reference the input config asset, necessary for input binding custom inputs
 struct FInputActionValue;	// forward declaring a struct
 class UHeroCombatComponent;
+class UAnimMontage;
 
 /**
  * 
@@ -65,6 +66,10 @@ protected:
 	void Input_AbilityInputPressed(FGameplayTag InInputTag);
 	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 #pragma endregion
+
+#pragma region Montages
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animations", meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* JumpAnim;
 
 public:
 	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent  () const { return HeroCombatComponent; }
