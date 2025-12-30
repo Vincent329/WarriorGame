@@ -33,11 +33,15 @@ void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaS
 
 	b_IsFalling = OwningMovementComponent->IsFalling();
 
-	if (b_IsOnGround && OwningCharacter->bPressedJump && !b_IsFalling)
+	b_DidJump = OwningCharacter->bPressedJump;
+
+
+	/*if (b_IsOnGround && OwningCharacter->bPressedJump && !b_IsFalling)
 	{
 		b_DidJump = OwningCharacter->bPressedJump;
 	}
 	else {
 		b_DidJump = false;
-	}
+	}*/
+
 }
