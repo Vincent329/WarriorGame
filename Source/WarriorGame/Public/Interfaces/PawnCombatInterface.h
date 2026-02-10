@@ -7,6 +7,8 @@
 
 #include "PawnCombatInterface.generated.h"
 
+class UPawnCombatComponent;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UPawnCombatInterface : public UInterface
@@ -23,6 +25,6 @@ class WARRIORGAME_API IPawnCombatInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const = 0; // getter function simply called if interface is implemented
 	
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interfaces/PawnCombatInterface.h"
 #include "WarriorBaseCharacter.generated.h"
 
 class UWarriorAbilitySystemComponent;
@@ -12,7 +13,7 @@ class UWarriorAttributeSet;
 class UDataAsset_StartUpDataBase;
 
 UCLASS()
-class WARRIORGAME_API AWarriorBaseCharacter : public ACharacter, public IAbilitySystemInterface
+class WARRIORGAME_API AWarriorBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
 {
 	GENERATED_BODY()
 
@@ -24,6 +25,10 @@ public:
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~End IAbilitySystemInterface Interface
+
+	// ~ Begin IPawnCombatInterface
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	// ~ End IPawnCombatInterface
 
 protected:
 	//---------- For Character Inherited classes, it's good practice to dscomment the beginning and ending of the APawn interface
@@ -39,13 +44,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
 	UWarriorAttributeSet* WarriorAttributeSet;
 
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
 	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
 
 public:
 	// public getters will give us access to these components in C++
 	FORCEINLINE UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponent() const { return WarriorAbilitySystemComponent;};
-	FORCEINLINE UWarriorAttributeSet* GetUWarriorAttributeSet() const {return WarriorAttributeSet;};
-	
+	FORCEINLINE UWarriorAttributeSet* GetUWarriorAttributeSet() const {return WarriorAttributeSet; };
 };

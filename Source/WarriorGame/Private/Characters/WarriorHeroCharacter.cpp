@@ -53,6 +53,11 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 
 }
 
+UPawnCombatComponent* AWarriorHeroCharacter::GetPawnCombatComponent() const
+{
+	return HeroCombatComponent;
+}
+
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	checkf(InputConfigDataAsset, TEXT("Input Config Data Asset is null, forgot to assign valid data asset as input config"));
