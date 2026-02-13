@@ -8,6 +8,15 @@
 #include "PawnCombatComponent.generated.h"
 
 class AWarriorBaseWeapon;
+
+UENUM(BlueprintType) // blueprint type because we want to be able to change this in either the details panel of the anim notify, we can specify a scenario of what's happening
+enum class EToggleDamageType : uint8
+{
+	CurrentEquippedWeapon,
+	LeftHand, // for enemies, they might have a left or right hand instead of a weapon
+	RightHand
+};
+
 /**
  * 
  */
@@ -35,5 +44,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	AWarriorBaseWeapon* GetCharacterCurrentEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
+	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
 };																																					
 
