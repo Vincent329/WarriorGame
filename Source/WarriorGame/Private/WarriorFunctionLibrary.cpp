@@ -48,8 +48,7 @@ void UWarriorFunctionLibrary::BP_DoesActorHaveTag(AActor* InActor, FGameplayTag 
 
 UPawnCombatComponent* UWarriorFunctionLibrary::NativeGetPawnCombatComponentFromActor(AActor* InActor)
 {
-    check (InActor);
-
+    //check (InActor);
     if (IPawnCombatInterface* PawnCombatInterface = Cast<IPawnCombatInterface>(InActor))
     {
         return PawnCombatInterface->GetPawnCombatComponent(); // if valid, access the combat componenet interface
