@@ -50,5 +50,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
+
+protected:
+	TArray<AActor*> OverlappedActors;
 };																																					
 

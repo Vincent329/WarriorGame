@@ -13,11 +13,15 @@ AWarriorHeroWeapon* UHeroCombatComponent::GetHeroCarriedWeaponByTag(FGameplayTag
 
 void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
 {
-    Debug::Print(GetOwningPawn()->GetActorNameOrLabel() + TEXT(" hit ") + HitActor->GetActorNameOrLabel(), FColor::Blue);
+    if (OverlappedActors.Contains(HitActor))
+    {
+        return; // making sure we can only the actors once per attack
+    }
+
+    OverlappedActors.AddUnique(HitActor); // don't forget to clear this array when the attack ends
 }
 
 void UHeroCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
 {
-    Debug::Print(GetOwningPawn()->GetActorNameOrLabel() + TEXT("'s weapon pulled from ") + InteractedActor->GetActorNameOrLabel(), FColor::Orange);
-
+    
 }

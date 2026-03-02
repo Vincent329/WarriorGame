@@ -42,6 +42,9 @@ namespace WarriorGameplayTags
 	// MAYBE ALSO: Extend for directional attack inputs
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_JumpToFinisher);
 
+	/* Shared Tags */
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
+
 
 	
 	// NEXT STEP, define in cpp file

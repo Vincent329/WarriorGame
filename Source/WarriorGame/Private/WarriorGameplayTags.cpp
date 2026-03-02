@@ -35,5 +35,8 @@ namespace WarriorGameplayTags {
 	// Status Tags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher");
 
+	/* Shared Tags */
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit");
+
 
 }
