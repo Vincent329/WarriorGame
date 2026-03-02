@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	AWarriorBaseWeapon* GetCharacterCurrentEquippedWeapon() const;
 
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
 };																																					

@@ -9,6 +9,9 @@
 class UStaticMeshComponent;
 class UBoxComponent;
 
+// declare a one parameter delegate to pass in an actor
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*)
+
 UCLASS()
 class WARRIORGAME_API AWarriorBaseWeapon : public AActor
 {
@@ -17,6 +20,10 @@ class WARRIORGAME_API AWarriorBaseWeapon : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AWarriorBaseWeapon();
+
+	// On the Pawn Combat Component, make sure that functions are bound to these delegates
+	FOnTargetInteractedDelegate OnWeaponHitTarget; // Beginning overlap
+	FOnTargetInteractedDelegate OnWeaponPulledFromTarget; // Ending overlap
 
 protected:
 	

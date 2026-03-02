@@ -12,6 +12,9 @@ void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegis
 	checkf(!CharacterCarriedWeaponMap.Contains(InWeaponTagToRegister), TEXT("A tag named %s has already been added as a carried weapon"), *InWeaponTagToRegister.ToString());
 	check(InWeaponToRegister); // check if the weapon is valid
 
+	InWeaponToRegister->OnWeaponHitTarget.BindUObject(this, &ThisClass::OnHitTargetActor);
+	InWeaponToRegister->OnWeaponPulledFromTarget.BindUObject(this, &ThisClass::OnWeaponPulledFromTargetActor);
+
 	CharacterCarriedWeaponMap.Emplace(InWeaponTagToRegister, InWeaponToRegister); // emplace will put in a default value to the map
 
 	if (bRegisterAsEquippedWeapon)
@@ -43,6 +46,15 @@ AWarriorBaseWeapon* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() co
 	}
 
 	return GetCharacterCarriedWeaponByTag(CurrentEquippedWeaponTag);
+}
+
+// executed upon firing the Delegate from the Weapon
+void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
+{
+}
+
+void UPawnCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
+{
 }
 
 void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
