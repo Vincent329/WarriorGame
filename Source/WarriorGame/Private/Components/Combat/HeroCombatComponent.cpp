@@ -3,6 +3,8 @@
 
 #include "Components/Combat/HeroCombatComponent.h"
 #include "Items/Weapons/WarriorHeroWeapon.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "WarriorGameplayTags.h"
 #include "WarriorDebugHelper.h"
 
 // handy helper function to allow uds to get in the warrior hero weapon
@@ -19,9 +21,18 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
     }
 
     OverlappedActors.AddUnique(HitActor); // don't forget to clear this array when the attack ends
+
+    FGameplayEventData Data;
+    Data.Instigator = GetOwningPawn();
+    Data.Target = HitActor;
+
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(),
+        WarriorGameplayTags::Shared_Event_MeleeHit,
+        Data);
 }
 
 void UHeroCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
 {
-    
+   
 }
