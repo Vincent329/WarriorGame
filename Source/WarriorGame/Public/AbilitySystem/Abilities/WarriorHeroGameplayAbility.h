@@ -23,9 +23,11 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Warrior | Ability")
 	AWarriorHeroController* GetHeroControllerFromActorInfo(); // return our hero controller
 
-
 	UFUNCTION(BlueprintPure, Category = "Warrior | Ability")
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
+
+	UFUNCTION(BlueprintPure, Category = "Warrior | Ability")
+	FGameplayEffectSpecHandle MakeHeroDamageAffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCurrentComboCount);
 
 private:
 	TWeakObjectPtr< AWarriorHeroCharacter> CachedWarriorHeroCharacter;	// a Smart pointer type in Unreal, effective if the reference does not need to be a UPROPERTY.  
