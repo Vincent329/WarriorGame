@@ -2,9 +2,11 @@
 
 
 #include "AbilitySystem/Abilities/WarriorHeroGameplayAbility.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "Characters/WarriorHeroCharacter.h"
 #include "Controllers/WarriorHeroController.h"
 #include "Components/Combat/HeroCombatComponent.h"
+#include "WarriorGameplayTags.h"
 
 AWarriorHeroCharacter* UWarriorHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
@@ -29,4 +31,38 @@ AWarriorHeroController* UWarriorHeroGameplayAbility::GetHeroControllerFromActorI
 UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()
 {
     return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
+}
+
+FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageAffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCurrentComboCount)
+{
+    check(EffectClass);
+    
+    //RESEARCH THIS, how the heck would I know about this off the bat
+    FGameplayEffectContextHandle ContextHandle = GetWarriorAbilitySystemComponentFromActorInfo()->MakeEffectContext();
+    ContextHandle.SetAbility(this);
+    ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
+    ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo()); // the effect instigator and causer, in this case, will be the same actor
+
+    
+    FGameplayEffectSpecHandle EffectSpecHandle 
+    = GetWarriorAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(
+        EffectClass,
+        GetAbilityLevel(), // from the gameplay ability class, I would not know this from the start
+        ContextHandle // created from above
+    );
+    
+    // stored the weapon base damage to the spec handle
+    EffectSpecHandle.Data->SetSetByCallerMagnitude(
+        WarriorGameplayTags::Shared_SetByCaller_BaseDamage,
+        InWeaponBaseDamage
+    ); // type of TSharedPointer of GameplayEffectSpec.  Can be used like a regular pointer
+
+    if (InCurrentAttackTypeTag.IsValid())
+    {
+        // store the combo count in the spec handle
+        EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InCurrentComboCount);
+    }
+
+    return EffectSpecHandle;
+
 }

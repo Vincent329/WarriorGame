@@ -26,7 +26,7 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
     Data.Instigator = GetOwningPawn();
     Data.Target = HitActor;
 
-
+    // Upon contact with the target actor, the gameplay effect waits for the specified tag.  and if it matches, it'll trigger the tag
     UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(),
         WarriorGameplayTags::Shared_Event_MeleeHit,
         Data);
