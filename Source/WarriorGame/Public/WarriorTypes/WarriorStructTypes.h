@@ -2,6 +2,7 @@
 
 #pragma once
 #include "GameplayTagContainer.h"
+#include "ScalableFloat.h"
 #include "WarriorStructTypes.generated.h" // remember when creating custom files, to add a generated.h file
 
 class UWarriorHeroLinkedAnimLayer;
@@ -36,6 +37,11 @@ struct FWarriorHeroWeaponData
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag")) // MetaData, will filter out all other tags taht aren't set as "InputTag"
 	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+
+	// In the Struct class, t his will help us dictate the Weapon Base Damage of our attacks
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FScalableFloat WeaponBaseDamage;
+
 };
 
 

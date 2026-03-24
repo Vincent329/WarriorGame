@@ -20,6 +20,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 
+	// -------- HELPER FUNCTIONS ------------
+	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
+	AWarriorHeroWeapon* GetHeroCurrentEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable, Category = "WarriorCombat", meta = (DisplayName = "Get Hero Current Equipped Weapon Damage at Level"))
+	float GetHeroCurrentEquippedDamageAtLevel(float InLevel) const;
+
 	// from the parent combat component
 	virtual void OnHitTargetActor(AActor* HitActor) override;
 	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor) override;

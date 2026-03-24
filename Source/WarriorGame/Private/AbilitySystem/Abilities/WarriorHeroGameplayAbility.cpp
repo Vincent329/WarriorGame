@@ -33,7 +33,7 @@ UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromAct
     return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
 }
 
-FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageAffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCurrentComboCount)
+FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageAffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount)
 {
     check(EffectClass);
     
@@ -55,12 +55,16 @@ FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageAffectSpecH
     EffectSpecHandle.Data->SetSetByCallerMagnitude(
         WarriorGameplayTags::Shared_SetByCaller_BaseDamage,
         InWeaponBaseDamage
-    ); // type of TSharedPointer of GameplayEffectSpec.  Can be used like a regular pointer
+    ); // Data is a type of TSharedPointer of GameplayEffectSpec.  Can be used like a regular pointer to the handle
 
+
+    // this is how we're oging to check the 
     if (InCurrentAttackTypeTag.IsValid())
     {
         // store the combo count in the spec handle
-        EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InCurrentComboCount);
+        // So checking whether or not it's light or Heavy, and the combo count within that
+        // then we can calculate the damage from there
+        EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InUsedComboCount);
     }
 
     return EffectSpecHandle;

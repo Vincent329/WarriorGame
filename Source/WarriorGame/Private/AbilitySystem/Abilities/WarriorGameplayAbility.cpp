@@ -44,4 +44,3 @@ UWarriorAbilitySystemComponent* UWarriorGameplayAbility::GetWarriorAbilitySystem
 {
 	return Cast<UWarriorAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }
-

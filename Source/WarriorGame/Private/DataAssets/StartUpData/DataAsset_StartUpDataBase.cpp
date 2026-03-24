@@ -22,7 +22,7 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySys
 			
 			UGameplayEffect* EffectCDO = EffectClass->GetDefaultObject<UGameplayEffect>();
 
-			// APPLY GAMEPLAYEFFECTTO SELF
+			// APPLY GAMEPLAYEFFECT TO SELF
 			InASCToGive->ApplyGameplayEffectToSelf(
 			EffectCDO, 
 			ApplyLevel, 
