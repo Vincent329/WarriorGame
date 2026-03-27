@@ -44,7 +44,7 @@ FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageEffectSpecH
     ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
     ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo()); // the effect instigator and causer, in this case, will be the same actor
 
-    
+    // IN THE EDITOR, We're using the GE_Shared_DealDamage Gameplay Effect to base our calculations
     FGameplayEffectSpecHandle EffectSpecHandle 
     = GetWarriorAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(
         EffectClass,

@@ -7,7 +7,7 @@
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "WarriorAttributeSet.generated.h"
 
-// these defines act as a getter and setter for any gameplay attribute properties, much more useful than
+// these defines act as a getter and setter for any gameplay attribute properties, much more useful than regular getters and setters
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -50,4 +50,9 @@ class WARRIORGAME_API UWarriorAttributeSet : public UAttributeSet
 		UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DefensePower; 	
 	ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DefensePower)
+
+	// placeholder property for 
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData DamageTaken;
+	ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DamageTaken)
 };
