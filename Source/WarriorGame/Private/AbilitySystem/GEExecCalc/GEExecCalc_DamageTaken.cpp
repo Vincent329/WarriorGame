@@ -1,6 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+// GEExecCalc_DealDamage
+// Custom Calculation Class that takes our attribute set
+// and upon the calling of the gameplay effect, we then execute the following attack calculation
+//
+
 #include "AbilitySystem/GEExecCalc/GEExecCalc_DamageTaken.h"
 #include "AbilitySystem/WarriorAttributeSet.h" // needs this for Find Field Checked
 #include "WarriorGameplayTags.h"
