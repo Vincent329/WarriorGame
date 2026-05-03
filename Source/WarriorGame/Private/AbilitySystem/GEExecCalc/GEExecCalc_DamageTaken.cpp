@@ -55,6 +55,7 @@ UGEExecCalc_DamageTaken::UGEExecCalc_DamageTaken()
 
 	RelevantAttributesToCapture.Add(GetWarriorDamageCapture().AttackPowerDef); // Refresher for what this does.  This is reflecting data from the Attribute Set that we created
 	RelevantAttributesToCapture.Add(GetWarriorDamageCapture().DefensePowerDef); // Refresher for what this does.  This is reflecting data from the Attribute Set that we created
+	RelevantAttributesToCapture.Add(GetWarriorDamageCapture().DamageTakenDef); // Refresher for what this does.  This is reflecting data from the Attribute Set that we created
 
 	// next lecture, we'll dictate how to use these captured variables and extract the values needed
 }
@@ -75,7 +76,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	EvaluateParameters.TargetTags = EffectSpec.CapturedTargetTags.GetAggregatedTags();
 
 	float SourceAttackPower = 0.f;
-	Debug::Print(TEXT("SourceAttackPower -> "), SourceAttackPower);
+	//Debug::Print(TEXT("SourceAttackPower -> "), SourceAttackPower);
 
 	// capture definition - which attribute value we're trying to get (AttackPower/DefensePowerdef)
 	// Evaluate Parameters, Agregator tags
@@ -92,27 +93,27 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 		if (TagMagnitude.Key.MatchesTagExact(WarriorGameplayTags::Shared_SetByCaller_BaseDamage))
 		{
 			BaseDamage = TagMagnitude.Value;
-			Debug::Print(TEXT("BaseDamage -> "), BaseDamage);
+			//Debug::Print(TEXT("BaseDamage -> "), BaseDamage);
 			
 
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WarriorGameplayTags::Player_SetByCaller_AttackType_Light))
 		{
 			UsedLightAttackComboCount = TagMagnitude.Value;
-			Debug::Print(TEXT("UsedLightAttackComboCount -> "), UsedLightAttackComboCount);
+			//Debug::Print(TEXT("UsedLightAttackComboCount -> "), UsedLightAttackComboCount);
 
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WarriorGameplayTags::Player_SetByCaller_AttackType_Heavy))
 		{
 			UsedHeavyAttackComboCount = TagMagnitude.Value;
-			Debug::Print(TEXT("UsedHeavyAttackComboCount -> "), UsedHeavyAttackComboCount);
+			//Debug::Print(TEXT("UsedHeavyAttackComboCount -> "), UsedHeavyAttackComboCount);
 
 		}
 	}
 
 	float TargetDefensePower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetWarriorDamageCapture().DefensePowerDef, EvaluateParameters, TargetDefensePower);
-	Debug::Print(TEXT("TargetDefensePower -> "), TargetDefensePower);
+	// Debug::Print(TEXT("TargetDefensePower -> "), TargetDefensePower);
 
 
 	// enemies will not use the light and heavy attack combo count, unless you decide for them to necessitate it
@@ -125,7 +126,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 		// ------------- CONSIDER: if each attack should have its own dedicated attack strength rather than scaled
 		const float DamageIncreasePercentLight = (UsedLightAttackComboCount -1) * 0.05f + 1.0f;
 		BaseDamage *= DamageIncreasePercentLight;
-		Debug::Print(TEXT("ScaledBaseDamageLight -> "), BaseDamage);
+		//Debug::Print(TEXT("ScaledBaseDamageLight -> "), BaseDamage);
 
 	}
 
@@ -134,7 +135,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 		// scale the heavy attack first attack right out of the gate
 		const float DamageIncreasePercentHeavy = UsedHeavyAttackComboCount * 0.15f + 1.0f;
 		BaseDamage *= DamageIncreasePercentHeavy;
-		Debug::Print(TEXT("ScaledBaseDamageHeavy -> "), BaseDamage);
+		//Debug::Print(TEXT("ScaledBaseDamageHeavy -> "), BaseDamage);
 
 
 	}

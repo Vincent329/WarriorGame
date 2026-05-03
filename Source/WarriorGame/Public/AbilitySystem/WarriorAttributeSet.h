@@ -22,8 +22,11 @@ class WARRIORGAME_API UWarriorAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
-	public:
+public:
 	UWarriorAttributeSet();
+
+	// can find this in the Attribute Set header
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
 	FGameplayAttributeData CurrentHealth; 	
