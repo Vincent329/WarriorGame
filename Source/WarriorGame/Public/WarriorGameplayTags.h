@@ -36,6 +36,8 @@ namespace WarriorGameplayTags
 
 	/* Enemy Tags */
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee); // define these abilities later in the course
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Ranged);
 
 	/* Status Tags */
 	// NOTE: Perhaps extend this functionality to when there's a unique animation for any attack in the route
@@ -47,7 +49,10 @@ namespace WarriorGameplayTags
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy);
 
 	/* Shared Tags */
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact); // both player and enemy will hit each other
+
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit);
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_HitReact);
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_BaseDamage);
 
 
