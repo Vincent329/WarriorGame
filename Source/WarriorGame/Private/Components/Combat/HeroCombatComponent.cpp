@@ -40,9 +40,19 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
     UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(),
         WarriorGameplayTags::Shared_Event_MeleeHit,
         Data);
+
+    // Upon contact with the target actor, We're going to just send the hit pause event
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(),
+        WarriorGameplayTags::Player_Event_HitPause,
+        FGameplayEventData());
 }
 
 void UHeroCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
 {
-   
+
+    
+    // once it's pulled from the actor
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(),
+        WarriorGameplayTags::Player_Event_HitPause,
+        FGameplayEventData());
 }
