@@ -48,7 +48,7 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 		NewCurrentHealth
 		);
 
-		Debug::Print(DebugString, FColor::Green);
+		// Debug::Print(DebugString, FColor::Green);
 
 
 		// TO-DO: Handle Death
