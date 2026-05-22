@@ -33,7 +33,7 @@ UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromAct
     return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
 }
 
-// What we're creating here is 
+// What we're creating here is a spec handle that contains necessary data to effect.    We take in the Gameplay Effect e
 FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount)
 {
     check(EffectClass);

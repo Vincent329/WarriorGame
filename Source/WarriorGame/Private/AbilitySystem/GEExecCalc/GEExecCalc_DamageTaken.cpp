@@ -60,7 +60,7 @@ UGEExecCalc_DamageTaken::UGEExecCalc_DamageTaken()
 	// next lecture, we'll dictate how to use these captured variables and extract the values needed
 }
 
-// for the execution, we take in a parameter for Execution parameters, and we have a custom output that wil llet us connect to other nodes
+// for the execution, we take in a parameter for Execution parameters, and we have a custom output that will let us connect to other nodes. (This effect is placed in GE_Shared_DealDamage)
 void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	// for this we're essentially ret

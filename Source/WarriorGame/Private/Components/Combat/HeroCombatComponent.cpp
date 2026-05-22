@@ -23,6 +23,7 @@ float UHeroCombatComponent::GetHeroCurrentEquippedDamageAtLevel(float InLevel) c
     return GetHeroCurrentEquippedWeapon()->HeroWeaponData.WeaponBaseDamage.GetValueAtLevel(InLevel); // the Hero weapon has Weapon data (from the Weapon
 }
 
+// This handles the logic of sharing the tags to the target in order to affect them
 void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
 {
     if (OverlappedActors.Contains(HitActor))
