@@ -25,7 +25,7 @@ class WARRIORGAME_API UWarriorAttributeSet : public UAttributeSet
 public:
 	UWarriorAttributeSet();
 
-	// can find this in the Attribute Set header
+	// can find this in the Attribute Set header, WHEN WE APPLY DAMAGE
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
@@ -54,7 +54,7 @@ public:
 	FGameplayAttributeData DefensePower; 	
 	ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DefensePower)
 
-	// placeholder property for 
+	// placeholder property for receiving damage
 	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DamageTaken;
 	ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DamageTaken)

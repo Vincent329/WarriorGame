@@ -4,6 +4,8 @@
 #include "AbilitySystem/WarriorAttributeSet.h"
 #include "GameplayEffectExtension.h"
 #include "WarriorDebugHelper.h"
+#include "WarriorFunctionLibrary.h"
+#include "WarriorGameplayTags.h"
 
 UWarriorAttributeSet::UWarriorAttributeSet()
 {
@@ -27,6 +29,7 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 		SetCurrentHealth(NewCurrentHealth);
 	}
 
+	// for now the these don't do anything, Develop Rage Multiplier later
 	if (Data.EvaluatedData.Attribute == GetCurrentRageAttribute())
 	{
 		const float NewCurrentRage = FMath::Clamp(GetCurrentRage(), 0.f, GetMaxRage());
@@ -48,14 +51,15 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 		NewCurrentHealth
 		);
 
+		// DEBUG STRING: WILL REMOVE LATER
 		// Debug::Print(DebugString, FColor::Green);
 
 
-		// TO-DO: Handle Death
-
+		// we will now know what the value of the new current health is and check to see if the target actor is dead or not
 		if (NewCurrentHealth == 0.f)
 		{
-
+			// From the Data Struct, we have access to the data type of Target (meaning the object/AbilitySystemComponent that we're intending to deal damage to)
+			UWarriorFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), WarriorGameplayTags::Shared_Status_Dead);
 		}
 	}
 
