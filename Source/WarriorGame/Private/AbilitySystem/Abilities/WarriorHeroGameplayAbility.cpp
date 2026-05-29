@@ -33,7 +33,7 @@ UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromAct
     return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
 }
 
-// What we're creating here is a spec handle that contains necessary data to effect.    We take in the Gameplay Effect e
+// What we're creating here is a spec handle that contains necessary data to effect. We take in the Gameplay Effect for the hero's stats, and 
 FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount)
 {
     check(EffectClass);
@@ -59,7 +59,7 @@ FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageEffectSpecH
     ); // Data is a type of TSharedPointer of GameplayEffectSpec.  Can be used like a regular pointer to the handle
 
 
-    // this is how we're oging to check the 
+    // this is how we're going to check the 
     if (InCurrentAttackTypeTag.IsValid())
     {
         // store the combo count in the spec handle
