@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
+#include "Interfaces/PawnUIInterface.h"
 #include "WarriorBaseCharacter.generated.h"
 
 class UWarriorAbilitySystemComponent;
@@ -13,7 +14,7 @@ class UWarriorAttributeSet;
 class UDataAsset_StartUpDataBase;
 
 UCLASS()
-class WARRIORGAME_API AWarriorBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
+class WARRIORGAME_API AWarriorBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface, public IPawnUIInterface
 {
 	GENERATED_BODY()
 
@@ -29,6 +30,10 @@ public:
 	// ~ Begin IPawnCombatInterface
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	// ~ End IPawnCombatInterface
+
+	// ~ Begin IPawnUIInterface
+	virtual UPawnUIComponent* GetPawnUIComponent() const override; // =0 means it's a pure Virtual function, so you have to define this in the base classes
+	// ~ End IPawnUIInterface
 
 protected:
 	//---------- For Character Inherited classes, it's good practice to dscomment the beginning and ending of the APawn interface

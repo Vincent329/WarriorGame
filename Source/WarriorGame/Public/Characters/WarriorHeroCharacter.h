@@ -18,6 +18,7 @@ class UDataAsset_InputConfig; // reference the input config asset, necessary for
 struct FInputActionValue;	// forward declaring a struct
 class UHeroCombatComponent;
 class UAnimMontage;
+class UHeroUIComponent;
 
 /**
  * 
@@ -33,6 +34,11 @@ public:
 	// ~ Begin IPawnCombatInterface
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	// ~ End IPawnCombatInterface
+
+	// ~ Begin IPawnUIInterface
+	virtual UPawnUIComponent* GetPawnUIComponent() const override; // =0 means it's a pure Virtual function, so you have to define this in the base classes
+	// ~ End IPawnUIInterface
+
 
 protected:
 
@@ -54,6 +60,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	UHeroCombatComponent* HeroCombatComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+	UHeroUIComponent* HeroUIComponent;
 #pragma endregion
 
 #pragma region Inputs
