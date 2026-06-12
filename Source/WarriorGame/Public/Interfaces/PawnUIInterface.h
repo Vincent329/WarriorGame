@@ -7,6 +7,7 @@
 #include "PawnUIInterface.generated.h"
 
 class UPawnUIComponent;
+class UHeroUIComponent;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -26,5 +27,5 @@ class WARRIORGAME_API IPawnUIInterface
 public:
 
 	virtual UPawnUIComponent* GetPawnUIComponent() const = 0; // =0 means it's a pure Virtual function, so you have to define this in the base classes
-
+	virtual UHeroUIComponent* GetHeroUIComponent() const; // this won't be a pure virtual
 };

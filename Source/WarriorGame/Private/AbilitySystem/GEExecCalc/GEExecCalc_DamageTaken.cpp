@@ -146,7 +146,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	if (FinalDamageDone > 0.0f)
 	{
 		// using a placeholder value to alter first, then that placeholder value will go into the current health
-		// helpful to do any further calculations o the final attribute data if needed
+		// helpful to do any further calculations to the final attribute data if needed
 		OutExecutionOutput.AddOutputModifier(
 			FGameplayModifierEvaluatedData(
 				GetWarriorDamageCapture().DamageTakenProperty,
@@ -155,6 +155,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 			)
 		);
 		
+		// execution calculation is communicated to the Ability System Component's attribute set
 
 	}
 

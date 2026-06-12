@@ -33,6 +33,7 @@ void UHeroCombatComponent::OnHitTargetActor(AActor* HitActor)
 
     OverlappedActors.AddUnique(HitActor); // don't forget to clear this array when the attack ends
 
+    // Hold a Data Container for the damage causer and the actor that got hit.
     FGameplayEventData Data;
     Data.Instigator = GetOwningPawn();
     Data.Target = HitActor;

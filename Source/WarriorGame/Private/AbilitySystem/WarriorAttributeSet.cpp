@@ -6,6 +6,9 @@
 #include "WarriorDebugHelper.h"
 #include "WarriorFunctionLibrary.h"
 #include "WarriorGameplayTags.h"
+#include "Components/UI/PawnUIComponent.h"
+#include "Components/UI/HeroUIComponent.h"
+#include "Interfaces/PawnUIInterface.h"
 
 UWarriorAttributeSet::UWarriorAttributeSet()
 {
@@ -17,8 +20,22 @@ UWarriorAttributeSet::UWarriorAttributeSet()
 	InitDefensePower(1.f);
 }
 
+// Called whenever an attribute has been modified, Look for GEExec_Calc as the effect is executed from there
 void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+	if (!CachedPawnUIInterface.IsValid())
+	{
+		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor()); // FGameplayEffectModCallbackData gives us the GameplayEffect spec (damage), the Evaluated Data (the attribute to find like Health/Rage/Damage), and the Target (the actor in question)
+						// works the same as casting to the Interface
+	}
+
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s didn't implement IPawnUIInterface"), *Data.Target.GetAvatarActor()->GetActorNameOrLabel());
+	
+	UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();  // we can get the UI component because the UPawnUIComponent is forward declared in the Interface
+
+	checkf(PawnUIComponent, TEXT("Couldn't extract a Pawn UI Component from %s"), *Data.Target.GetAvatarActor()->GetActorNameOrLabel());
+
+
 	// nothing goes on in parent
 	// access the header file from FGameplayEffectModCallbackData in order to access data, NOTE: no cpp file so you'd have to include the header directly
 	
@@ -26,7 +43,9 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 	{
 		const float NewCurrentHealth = FMath::Clamp(GetCurrentHealth(), 0.f, GetMaxHealth());
 		
-		SetCurrentHealth(NewCurrentHealth);
+		SetCurrentHealth(NewCurrentHealth); // because of Attribute Accessors, we can directly access the attribute as such
+
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth()/GetMaxHealth());
 	}
 
 	// for now the these don't do anything, Develop Rage Multiplier later
@@ -34,6 +53,12 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 	{
 		const float NewCurrentRage = FMath::Clamp(GetCurrentRage(), 0.f, GetMaxRage());
 		SetCurrentRage(NewCurrentRage);
+
+		// Since Rage is Hero specific, our Pawn has to be casted or communicated as a Hero UI Component... interface it
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{ 
+			HeroUIComponent->OnCurrentRageChanged.Broadcast(GetCurrentRage()/GetMaxRage());
+		}
 	}
 
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
@@ -44,7 +69,6 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 		const float NewCurrentHealth = FMath::Clamp(OldHealth - DamageDone, 0.f, GetMaxHealth());
 		SetCurrentHealth(NewCurrentHealth);
 
-		// TO-DO: Notify the UI
 		const FString DebugString = FString::Printf(TEXT("Old Health: %f, Damage Done: %f, New Current Health: %f"),
 		OldHealth,
 		DamageDone,
@@ -52,7 +76,10 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 		);
 
 		// DEBUG STRING: WILL REMOVE LATER
-		// Debug::Print(DebugString, FColor::Green);
+		// Debug::Print(DebugString, FColor::Green);	
+		// TO-DO: Notify the UI
+
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 
 
 		// we will now know what the value of the new current health is and check to see if the target actor is dead or not
