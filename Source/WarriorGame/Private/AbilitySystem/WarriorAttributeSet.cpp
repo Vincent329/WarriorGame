@@ -79,11 +79,11 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
 		// Debug::Print(DebugString, FColor::Green);	
 		// TO-DO: Notify the UI
 
-		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
+		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth()); // Upon broadcast we notify the UI with the current health percentage
 
 
 		// we will now know what the value of the new current health is and check to see if the target actor is dead or not
-		if (NewCurrentHealth == 0.f)
+		if (GetCurrentHealth() == 0.f)
 		{
 			// From the Data Struct, we have access to the data type of Target (meaning the object/AbilitySystemComponent that we're intending to deal damage to)
 			UWarriorFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), WarriorGameplayTags::Shared_Status_Dead);

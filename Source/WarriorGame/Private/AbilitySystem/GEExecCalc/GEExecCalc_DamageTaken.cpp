@@ -94,8 +94,6 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 		{
 			BaseDamage = TagMagnitude.Value;
 			//Debug::Print(TEXT("BaseDamage -> "), BaseDamage);
-			
-
 		}
 		if (TagMagnitude.Key.MatchesTagExact(WarriorGameplayTags::Player_SetByCaller_AttackType_Light))
 		{
