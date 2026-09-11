@@ -8,7 +8,7 @@
 
 class UPawnUIComponent;
 class UHeroUIComponent;
-
+class UEnemyUIComponent;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UPawnUIInterface : public UInterface
@@ -28,4 +28,5 @@ public:
 
 	virtual UPawnUIComponent* GetPawnUIComponent() const = 0; // =0 means it's a pure Virtual function, so you have to define this in the base classes
 	virtual UHeroUIComponent* GetHeroUIComponent() const; // this won't be a pure virtual
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const;
 };

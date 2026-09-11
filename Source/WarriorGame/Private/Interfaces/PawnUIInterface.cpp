@@ -9,3 +9,9 @@ UHeroUIComponent* IPawnUIInterface::GetHeroUIComponent() const
 {
 	return nullptr;
 }
+
+// override this in the enemy character
+UEnemyUIComponent* IPawnUIInterface::GetEnemyUIComponent() const
+{
+	return nullptr;
+}

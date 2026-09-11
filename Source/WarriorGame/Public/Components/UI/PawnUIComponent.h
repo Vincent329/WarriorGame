@@ -18,4 +18,6 @@ class WARRIORGAME_API UPawnUIComponent : public UPawnComponentExtensionBase
 public:
 	UPROPERTY(BlueprintAssignable) // Blueprint assignable so that in BP, we can call this delegate in 
 	FOnPercentChangedDelegate OnCurrentHealthChanged; // Delegate to bind to any element that needs to update
+
+
 };

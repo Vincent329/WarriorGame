@@ -18,3 +18,19 @@ void UWarriorWidgetBase::NativeOnInitialized()
 		}
 	}
 }
+
+void UWarriorWidgetBase::InitEnemyCreatedWidget(AActor* OwningEnemyActor)
+{
+	if (IPawnUIInterface* PawnUIInterface = Cast<IPawnUIInterface>(OwningEnemyActor))
+	{
+		// creating a helper function that will help us retrieve the pawn's UI component
+		// if calling manually, this enemyUIcomponent must be valid
+		UEnemyUIComponent* EnemyUIComponent = PawnUIInterface->GetEnemyUIComponent();
+		checkf(EnemyUIComponent, TEXT("Failed to extract an Enemy UI Component from %s"), *OwningEnemyActor->GetActorNameOrLabel());
+		
+		// Entry point to binding delegates, like the owning UI Hero.
+		// We call the event upon initialization, and we're filling out the logic in the Blueprint
+		BP_OnOwningEnemyUIComponentInitialized(EnemyUIComponent);
+	}
+
+}

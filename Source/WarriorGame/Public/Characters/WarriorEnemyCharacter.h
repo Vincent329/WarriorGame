@@ -25,6 +25,7 @@ public:
 	// 
 	// ~ Begin IPawnUIInterface
 	virtual UPawnUIComponent* GetPawnUIComponent() const override; // =0 means it's a pure Virtual function, so you have to define this in the base classes
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 	// ~ End IPawnUIInterface
 
 private:
