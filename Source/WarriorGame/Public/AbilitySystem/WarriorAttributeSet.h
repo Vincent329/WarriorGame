@@ -63,5 +63,5 @@ public:
 	ATTRIBUTE_ACCESSORS(UWarriorAttributeSet, DamageTaken)
 
 private:
-	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface; // keep a weak interface pointer
+	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface; // keep a weak interface pointer to use the interface
 };
