@@ -128,6 +128,7 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 	//}
 
 	// we use IsNull for Softobject pointers because isValid would check for assets that are already loaded
+	// PURPOSE: The moment that our player controller syncs up with the player character, We peer through the data asset and start granting the abilities to the player
 	if (!CharacterStartUpData.IsNull())
 	{
 
