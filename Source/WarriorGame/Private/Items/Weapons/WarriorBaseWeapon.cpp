@@ -27,18 +27,19 @@ AWarriorBaseWeapon::AWarriorBaseWeapon()
 
 void AWarriorBaseWeapon::OnCollisionBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+	APawn* WeaponOwningPawn = GetInstigator<APawn>(); 
 	checkf(WeaponOwningPawn, TEXT("Forgot to assign an instigator as the owning pawn for the weapon: %s"), *GetName());
 
+	// if this ends up hitting another pawn
+	// 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		// 
+		// implement the hit. Check first that we're not hitting ourselves, then execute the hit logic
 		if (WeaponOwningPawn != HitPawn)
 		{
 			OnWeaponHitTarget.ExecuteIfBound(OtherActor);
 		}
 
-		// implement the hit check
 	}
 }
 

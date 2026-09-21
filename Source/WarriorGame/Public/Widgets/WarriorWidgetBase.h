@@ -28,7 +28,7 @@ protected:
 	void BP_OnOwningEnemyUIComponentInitialized(UEnemyUIComponent* OwningEnemyUIComponent);
 
 public:
-	// Enemies need to initialize the widget by themselves
+	// Enemies need to initialize the widget by themselves, so manually
 	UFUNCTION(BlueprintCallable)
 	void InitEnemyCreatedWidget(AActor* OwningEnemyActor);
 };

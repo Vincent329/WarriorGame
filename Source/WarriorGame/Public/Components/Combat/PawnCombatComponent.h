@@ -7,7 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "PawnCombatComponent.generated.h"
 
-class AWarriorBaseWeapon;
+class AWarriorBaseWeapon; // when we forward declare the base weapon, we have access to the delegates that'll execute
 
 UENUM(BlueprintType) // blueprint type because we want to be able to change this in either the details panel of the anim notify, we can specify a scenario of what's happening
 enum class EToggleDamageType : uint8
@@ -45,6 +45,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	AWarriorBaseWeapon* GetCharacterCurrentEquippedWeapon() const;
 
+	// IMPORTANT: so whenever a character has a combat component, it's going to bind 
 	virtual void OnHitTargetActor(AActor* HitActor);
 	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
 

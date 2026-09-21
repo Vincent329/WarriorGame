@@ -48,7 +48,7 @@ AWarriorBaseWeapon* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() co
 	return GetCharacterCarriedWeaponByTag(CurrentEquippedWeaponTag);
 }
 
-// executed upon firing the Delegate from the Weapon
+// executed upon firing the Delegate from the Weapon, overriden if it's from the hero or enemy
 void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
 {
 }
