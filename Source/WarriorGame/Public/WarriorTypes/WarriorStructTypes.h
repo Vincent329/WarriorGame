@@ -38,10 +38,12 @@ struct FWarriorHeroWeaponData
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag")) // MetaData, will filter out all other tags taht aren't set as "InputTag"
 	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
 
-	// In the Struct class, t his will help us dictate the Weapon Base Damage of our attacks
+	// In the Struct class, this will help us dictate the Weapon Base Damage of our attacks
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FScalableFloat WeaponBaseDamage;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftObjectPtr<UTexture2D> SoftWeaponIconTexture;
 };
 
 

@@ -45,7 +45,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "WarriorCombat")
 	AWarriorBaseWeapon* GetCharacterCurrentEquippedWeapon() const;
 
-	// IMPORTANT: so whenever a character has a combat component, it's going to bind 
+	// IMPORTANT: so whenever a character has a combat component, it's going to bind to the delegate when we hit and release from the target actor
 	virtual void OnHitTargetActor(AActor* HitActor);
 	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
 

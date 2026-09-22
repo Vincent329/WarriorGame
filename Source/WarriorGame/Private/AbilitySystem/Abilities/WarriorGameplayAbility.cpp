@@ -27,7 +27,7 @@ void UWarriorGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle
 
 	if (AbilityActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
 	{
-		// spec is the specification of our gameplay ability, pass in the HAndle
+		// spec is the specification of our gameplay ability, pass in the Handle
 		if (ActorInfo)
 		{
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
@@ -47,13 +47,15 @@ UWarriorAbilitySystemComponent* UWarriorGameplayAbility::GetWarriorAbilitySystem
 	return Cast<UWarriorAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }
 
+// The C++ variant that gets called in Blueprint, Take the Ability compoonent of the target and apply spec data to the target
 FActiveGameplayEffectHandle UWarriorGameplayAbility::NativeApplyEffectSpecHandleToTarget(AActor* TargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
 {
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 
 	check(TargetASC && InSpecHandle.IsValid());
 
-	// Apply Gameplay Effect To Spec Handle.  The curent spec handle to the target actor's Ability System Component
+	// Apply Gameplay Effect To Spec Handle.
+	//The current spec handle to the target actor's Ability System Component
 	return GetWarriorAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(
 		*InSpecHandle.Data,
 		TargetASC
