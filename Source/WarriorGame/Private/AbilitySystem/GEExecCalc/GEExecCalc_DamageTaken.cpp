@@ -131,7 +131,7 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	if (UsedHeavyAttackComboCount != 0)
 	{
 		// scale the heavy attack first attack right out of the gate
-		const float DamageIncreasePercentHeavy = UsedHeavyAttackComboCount * 0.15f + 1.0f;
+		const float DamageIncreasePercentHeavy = UsedHeavyAttackComboCount * 0.3f + 1.0f;
 		BaseDamage *= DamageIncreasePercentHeavy;
 		//Debug::Print(TEXT("ScaledBaseDamageHeavy -> "), BaseDamage);
 
