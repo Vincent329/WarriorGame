@@ -18,7 +18,7 @@ class WARRIORGAME_API AWarriorHeroController : public APlayerController, public 
 public:
 	AWarriorHeroController();
 	// -- Begin IGenericTeamAgentInterface Interface --
-	virtual FGenericTeamId GetGenericTeamId() const;
+	virtual FGenericTeamId GetGenericTeamId() const override;
 	// -- Begin IGenericTeamAgentInterface Interface --
 
 private:
