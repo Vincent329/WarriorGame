@@ -16,7 +16,8 @@ public class WarriorGame : ModuleRules
 			
 			"GameplayTags",
             "EnhancedInput",
-            "GameplayTasks"
+            "GameplayTasks",
+			"AIModule"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

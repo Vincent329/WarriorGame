@@ -28,9 +28,32 @@ AWarriorAIController::AWarriorAIController(const FObjectInitializer& ObjectIniti
 	EnemyPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("EnemyPerceptionComponent");
 	EnemyPerceptionComponent->ConfigureSense(*AISenseConfig_Sight);
 	EnemyPerceptionComponent->SetDominantSense(UAISenseConfig_Sight::StaticClass());
-	EnemyPerceptionComponent->OnTargetPerceptionUpdated.AddUniqueDynamic(this, &ThisClass::OnTargetPerceptionUpdated);
+	EnemyPerceptionComponent->OnTargetPerceptionUpdated.AddUniqueDynamic(this, &ThisClass::OnEnemyPerceptionUpdated);
+	
+	SetGenericTeamId(FGenericTeamId(1));
 }
 
-void AWarriorAIController::OnTargetPerceptionUpdated(AActor * Actor, FAIStimulus AIStimulus)
+ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& Other) const
 {
+	const APawn* PawnToCheck = Cast<const APawn>(&Other);
+	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
+
+	// if the other team agent isn't equal to this controller's team ID, then we can assume it's hostile
+	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId())
+	{
+		return ETeamAttitude::Hostile;
+	}
+
+	return  ETeamAttitude::Friendly;
+
 }
+
+void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus AIStimulus)
+{
+	if (AIStimulus.WasSuccessfullySensed() && Actor)
+	{
+		Debug::Print(Actor->GetActorNameOrLabel() + TEXT(" was sensed."), FColor::Green);
+	}
+}
+
+
