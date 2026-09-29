@@ -24,6 +24,9 @@ class WARRIORGAME_API AWarriorAIController : public AAIController
 	// -- End IGenericTeamAgentInterface Interface --
 
 	protected:
+
+	virtual void BeginPlay() override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UAIPerceptionComponent* EnemyPerceptionComponent;
 
@@ -33,5 +36,15 @@ class WARRIORGAME_API AWarriorAIController : public AAIController
 	UFUNCTION()
 	virtual void OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus AIStimulus);
 
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "Detour Crowd Avoidance Config")
+	bool bEnableDetourCrowdAvoidance = true; // we can change this later in editor, to compare movement with avoidance on and off
 
+	// how we set the meta specifier, the variable can only be changed if the boolean is true
+	// UIMin and UIMax can be used to specify as a slider range
+	UPROPERTY(EditDefaultsOnly, Category = "Detour Crowd Avoidance Config", meta = (EditCondition = "bEnableDetourCrowdAvoidance", UIMin = "1", UIMax = "4"))
+	int32 DetourCrowdAvoidanceQuality = 4;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Detour Crowd Avoidance Config", meta = (EditCondition = "bEnableDetourCrowdAvoidance"))
+	float CollisionQueryRange = 600.f;
 };

@@ -13,10 +13,7 @@
 AWarriorAIController::AWarriorAIController(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>("PathFollowingComponent"))
 {
-	if (UCrowdFollowingComponent* CrowdComp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
-	{
-		Debug::Print(TEXT("CrowdFollowingComponent Valid"), FColor::Green);
-	}
+
 
 	AISenseConfig_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>("EnemySenseConfig_Sight");
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectEnemies = true; // detect anyone that isn't a team player
@@ -47,6 +44,41 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 
 	return  ETeamAttitude::Friendly;
 
+}
+
+void AWarriorAIController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (UCrowdFollowingComponent* CrowdComp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
+	{
+		// Viable variables that can alter the effectiveness of the Crowd Avoidance
+		// 1) SetCrowdSimulationState(ECrowdSimulationState enum)	
+		// 2) SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality enum)
+		// if Detour Avoidance is enabled or disabled, we're going to set this
+		// 
+		//
+		// Crowd Avoidance Quality Enums: Low, Medium, High, Good
+		//
+		// CrowdComp->SetAvoidanceGroup(1);
+		// CrowdComp->SetGroupsToAvoid(1);
+		//
+		CrowdComp->SetCrowdSimulationState(bEnableDetourCrowdAvoidance ? ECrowdSimulationState::Enabled : ECrowdSimulationState::Disabled);
+
+		switch (DetourCrowdAvoidanceQuality)
+		{
+			case 1:	CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);	break;
+			case 2: CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);	break;
+			case 3: CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);	break;
+			case 4: CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);	break;
+			default:
+				break;
+		}
+
+		CrowdComp->SetAvoidanceGroup(1); // we pass in the Team ID in the avoidance groups
+		CrowdComp->SetGroupsToAvoid(1);
+		CrowdComp->SetCrowdCollisionQueryRange(CollisionQueryRange);
+	}
 }
 
 // we need to store the Actor Parameter as our Target Actor Key in the Blueprint
