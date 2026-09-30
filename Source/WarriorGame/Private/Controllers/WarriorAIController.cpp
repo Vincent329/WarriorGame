@@ -88,7 +88,7 @@ void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus A
 	{
 		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 		{
-			// MAKE SURE that the key name is the exact same as the Blackboard Asset. The Blackboard will immmediately pick up the other actor
+			// MAKE SURE that the key name is the exact same as the Blackboard Asset. The Blackboard will immmediately pick up the target actor as the key
 			BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor); 
 		}
 	}
