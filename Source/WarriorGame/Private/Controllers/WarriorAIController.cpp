@@ -37,7 +37,7 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
 
 	// if the other team agent isn't equal to this controller's team ID, then we can assume it's hostile
-	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId())
+	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())
 	{
 		return ETeamAttitude::Hostile;
 	}
@@ -84,12 +84,16 @@ void AWarriorAIController::BeginPlay()
 // we need to store the Actor Parameter as our Target Actor Key in the Blueprint
 void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus AIStimulus)
 {
-	if (AIStimulus.WasSuccessfullySensed() && Actor)
+	/* Retool the code so that we don't keep updating the setter*/
+	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 	{
-		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+		if (!BlackboardComponent->GetValueAsObject(FName("TargetActor")))
 		{
-			// MAKE SURE that the key name is the exact same as the Blackboard Asset. The Blackboard will immmediately pick up the target actor as the key
-			BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor); 
+			if (AIStimulus.WasSuccessfullySensed() && Actor)
+			{
+				BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
+
+			}
 		}
 	}
 }
