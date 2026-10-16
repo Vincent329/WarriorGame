@@ -87,6 +87,7 @@ void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus A
 	/* Retool the code so that we don't keep updating the setter*/
 	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 	{
+		// if the value for target actor was not already set
 		if (!BlackboardComponent->GetValueAsObject(FName("TargetActor")))
 		{
 			if (AIStimulus.WasSuccessfullySensed() && Actor)
