@@ -43,6 +43,7 @@ namespace WarriorGameplayTags
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Weapon);
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee); // define these abilities later in the course
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Ranged);
+	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
 
 	/* Attack Type Tags */
 	WARRIORGAME_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light);
