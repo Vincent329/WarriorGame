@@ -4,6 +4,7 @@
 #include "AnimInstances/WarriorCharacterAnimInstance.h"
 #include "Characters/WarriorBaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "KismetAnimationLibrary.h"
 #include "WarriorDebugHelper.h"
 
 void UWarriorCharacterAnimInstance::NativeInitializeAnimation()
@@ -34,7 +35,8 @@ void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaS
 	b_IsFalling = OwningMovementComponent->IsFalling();
 
 	b_DidJump = OwningCharacter->bPressedJump;
-
+	
+	LocomotionDirection = UKismetAnimationLibrary::CalculateDirection(OwningCharacter->GetVelocity(), OwningCharacter->GetActorRotation());
 
 	/*if (b_IsOnGround && OwningCharacter->bPressedJump && !b_IsFalling)
 	{
