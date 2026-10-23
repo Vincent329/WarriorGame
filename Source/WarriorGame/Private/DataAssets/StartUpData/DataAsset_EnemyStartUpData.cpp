@@ -19,7 +19,6 @@ void UDataAsset_EnemyStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySy
 			FGameplayAbilitySpec AbilitySpec(AbilityClass);
 			AbilitySpec.SourceObject = InASCToGive->GetAvatarActor();
 			AbilitySpec.Level = ApplyLevel;
-			//AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilityClass.Get());
 
 			InASCToGive->GiveAbility(AbilitySpec); // can then retrieve the gameplay ability using the input tag from Dynamic Ability Tags
 		}

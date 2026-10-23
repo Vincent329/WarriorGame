@@ -28,7 +28,7 @@ class WARRIORGAME_API UWarriorAttributeSet : public UAttributeSet
 public:
 	UWarriorAttributeSet();
 
-	// can find this in the Attribute Set header, WHEN WE APPLY DAMAGE
+	// can find this in the Attribute Set header, WHEN WE DO ANYTHING THAT AFFECTS HEALTH
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
