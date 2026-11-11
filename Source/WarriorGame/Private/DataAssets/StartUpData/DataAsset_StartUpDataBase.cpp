@@ -9,12 +9,12 @@
 void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
 	// check(InASCToGive); // this might not be working
-	checkf(InASCToGive, TEXT("ASC is null when trying to give start-up data!"))
-	/*if (!InASCToGive)
+	//checkf(InASCToGive, TEXT("ASC is null when trying to give start-up data!"))
+	if (!InASCToGive)
 	{
 		UE_LOG(LogTemp, Error, TEXT("ASC is null when trying to give start-up data!"));
 		return;
-	}*/
+	}
 
 	GrantAbilities(ActivateOnGivenAbilities, InASCToGive, ApplyLevel);
 	GrantAbilities(ReactiveAbilities, InASCToGive, ApplyLevel);
