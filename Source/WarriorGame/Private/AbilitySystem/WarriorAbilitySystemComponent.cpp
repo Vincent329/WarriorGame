@@ -2,7 +2,7 @@
 
 
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
-#include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
+#include "AbilitySystem/Abilities/WarriorHeroGameplayAbility.h" // replaced WarriorGameplayAbility to fix AbilitySpec bug
 
 void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
 {
@@ -25,6 +25,7 @@ void UWarriorAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& 
 {
 }
 
+// HERO SPECIFIC
 void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandle)
 {
 	if (InDefaultWeaponAbilities.IsEmpty()) return;
@@ -33,7 +34,7 @@ void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarr
 	{
 		if (!AbilitySet.IsValid()) continue;
 
-		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant); // make sure to include WarriorGameplayAbility.h
+		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant); // make sure to include WarriorHeroGameplayAbility.h
 
 		AbilitySpec.SourceObject = GetAvatarActor();
 		AbilitySpec.Level = ApplyLevel;
@@ -58,4 +59,30 @@ void UWarriorAbilitySystemComponent::RemoveGrantedWeaponAbilities(UPARAM(ref)TAr
 	}
 
 	InSpecHandlesToRemove.Empty(); //Any latent abilities, flush out anything
+}
+
+bool UWarriorAbilitySystemComponent::TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate)
+{
+	check(AbilityTagToActivate.IsValid());
+
+	TArray<FGameplayAbilitySpec*> FoundAbilitySpecs;
+	
+	// SingleTagContainer can turn a tag into a tag container
+	// We created an array above of ability specs, this will be filled with Activatable Gameplay Abilities
+	GetActivatableGameplayAbilitySpecsByAllMatchingTags(AbilityTagToActivate.GetSingleTagContainer(), FoundAbilitySpecs);
+	
+	if (!FoundAbilitySpecs.IsEmpty())
+	{
+		const int32 RandomAbilityIndex = FMath::RandRange(0, FoundAbilitySpecs.Num() - 1);
+		FGameplayAbilitySpec* SpecToActivate = FoundAbilitySpecs[RandomAbilityIndex];
+
+		check (SpecToActivate);
+
+		if (!SpecToActivate->IsActive())
+		{
+			return TryActivateAbility(SpecToActivate->Handle);
+		}
+	}
+
+	return false;
 }

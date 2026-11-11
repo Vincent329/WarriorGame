@@ -26,4 +26,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior | Ability") // For UPARAM starters, see this video clip https://www.youtube.com/watch?v=GwvvJvXq798
 	void RemoveGrantedWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove);
+
+	UFUNCTION(BlueprintCallable)
+	bool TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate);
 };
